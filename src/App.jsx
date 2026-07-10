@@ -1,4 +1,5 @@
 
+import ProductCard from './Components/AmazonExample/ProductCard'
 import MovieData from './Components/MovieData'
 
 function App() {
@@ -6,7 +7,8 @@ function App() {
 
   return (
     <>
-      <MovieData/>
+      {/* <MovieData/> */}
+      <ProductCard/>
     </>
   )
 }
