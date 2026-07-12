@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function ApisInReact() {
-  // const [movies, setMovies] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // // Fetch with Promise constructor
   // const fetchMoviesPromise = async () => {
@@ -58,6 +58,37 @@ function ApisInReact() {
   // useEffect(() => {
   //   practicePromise()
   // }, [])
+
+  
+  // Fetch with Axios from mock API
+  const fetchMoviesAxios = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("https://jsonplaceholder.typicode.com/postslllllllll?_limit=2");
+      // const movieData = response.data.map((post) => ({
+      //   id: post.id,
+      //   title: post.title,
+      // }));
+      setMovies(response.data);
+      console.log(response.data,"inside functionnnnnnn")
+      setLoading(false);
+    } catch (error) {
+      console.error("Axios error:", error);
+    } 
+  };
+
+  useEffect(() =>{
+    fetchMoviesAxios()
+  },[])
+
+    if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+
+
+
+
   return (
     <>
       {/* <h1>{movies}</h1>
@@ -66,7 +97,14 @@ function ApisInReact() {
       {marks}
       {result} */}
 
-      
+{movies.length > 0 && movies.map((movie, index) => {
+  return (
+    <>
+    <h1 key={index}>{movie.title}</h1>
+    </>
+  )
+})}
+
     </>
   )
 }
