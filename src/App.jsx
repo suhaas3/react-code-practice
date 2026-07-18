@@ -1,4 +1,4 @@
-
+import { Routes, Route } from "react-router-dom";
 import ProductCard from './Components/AmazonExample/ProductCard'
 import ApisInReact from './Components/ApisInReact/ApisInReact'
 import AuthenticationApi from './Components/ApisInReact/AuthenticationApi'
@@ -8,9 +8,10 @@ import LifeCyclePhases from './Components/LifeCyclePhases/LifeCyclePhases'
 import MovieData from './Components/MovieData'
 import Navbar from './Components/Navbar/Navbar'
 import ReactHooks from './Components/StateExamples/ReactHooks'
+import Home from "./Components/Home/Home";
 
 function App() {
-  
+
 
   return (
     <>
@@ -26,8 +27,13 @@ function App() {
       {/* <MovieList/> */}
 
       {/* <AuthenticationApi /> */}
-      <LifeCyclePhases/>
-      <Navbar/>
+      <Navbar />
+      <Routes>
+
+        <Route path="/" element={<Home/>}/>
+        <Route path="/products" element={<LifeCyclePhases/>} />
+      </Routes>
+
     </>
   )
 }

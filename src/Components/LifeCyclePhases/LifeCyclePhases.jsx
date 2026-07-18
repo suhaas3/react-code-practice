@@ -98,11 +98,9 @@ export default function LifeCyclePhases() {
 
   }
 
-
-  console.log(ratingSelect, "selected ratingsssss")
   return (
     <>
-      <div style={{marginTop:"80px"}}>
+      <div>
         <h1>life cycle phases in react js</h1>
 
 
