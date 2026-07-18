@@ -6,14 +6,16 @@ export default function LifeCyclePhases() {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [selectCategory, setSelectCategory] = useState({
-  //   category: ""
-  // })
+
+  //category filter states
   const [selectCategory, setSelectCategory] = useState("")
   const [filteredProducts, setFilterProducts] = useState([])
 
   //price filter state
   const [selectedPrices, setSelectedPrices] = useState([]);
+
+  //rating filter state
+  const [ratingSelect, setRatingSelect] = useState("");
 
   useEffect(() => {
     getProducts();
@@ -31,10 +33,6 @@ export default function LifeCyclePhases() {
     const { name, value } = e.target;
 
     setSelectCategory(value);
-    // setSelectCategory(prev => ({
-    //   ...prev,
-    //   [name]: value
-    // }))
   }
 
   useEffect(() => {
@@ -53,10 +51,26 @@ export default function LifeCyclePhases() {
         )
       })
 
-      return categoryFilter && priceFilter;
+      // const ratingFilter = ratingSelect === "" || product.rating >= Number(ratingSelect);
+      // Rating Filter
+    let ratingMatch= true;
+
+    if (ratingSelect === "0-1") {
+      ratingMatch = product.rating >= 0 && product.rating < 1;
+    } else if (ratingSelect === "1-2") {
+      ratingMatch = product.rating >= 1 && product.rating < 2;
+    } else if (ratingSelect === "2-3") {
+      ratingMatch = product.rating >= 2 && product.rating < 3;
+    } else if (ratingSelect === "3") {
+      ratingMatch = product.rating >= 3;
+    } else if (ratingSelect === "4") {
+      ratingMatch = product.rating >= 4;
+    }
+
+      return categoryFilter && priceFilter && ratingMatch;
     })
     setFilterProducts(filteredItems)
-  }, [products, selectCategory, selectedPrices])
+  }, [products, selectCategory, selectedPrices, ratingSelect])
 
 
 
@@ -77,7 +91,15 @@ export default function LifeCyclePhases() {
 
   }
 
-  console.log(selectedPrices, "selected pricesssss")
+  const handleRatings = (e) => {
+    const {value, checked} = e.target;
+
+    setRatingSelect(value)
+    
+  }
+
+
+  console.log(ratingSelect,"selected ratingsssss")
   return (
     <>
       <h1>life cycle phases in react js</h1>
@@ -93,7 +115,6 @@ export default function LifeCyclePhases() {
       </select>
 
       <label>Price:
-
         <input type='checkbox' value="5-10" onChange={handlePrice} />₹5 - ₹10
       </label>
       <label>
@@ -105,11 +126,25 @@ export default function LifeCyclePhases() {
       <label>
         <input type='checkbox' value="30-300" onChange={handlePrice} />₹30 - ₹300
       </label>
-
       <label>
         <input type='checkbox' value="300-1000" onChange={handlePrice} />₹300 - ₹1000
       </label>
 
+<label>
+  <input type='radio' value="0-1" name='rating' checked={ratingSelect === "0-1"} onChange={handleRatings}/>1★
+</label>
+<label>
+  <input type='radio' value="1-2" name='rating' checked={ratingSelect === "1-2"} onChange={handleRatings}/>1★ & 2★ 
+</label>
+<label>
+  <input type='radio' value="2-3" name='rating' checked={ratingSelect === "2-3"} onChange={handleRatings}/>2★ & 3★ 
+</label>
+<label>
+  <input type='radio' value="3" name='rating' checked={ratingSelect === "3"} onChange={handleRatings}/>3★ & Above
+</label>
+<label>
+  <input type='radio' value="4" name='rating' checked={ratingSelect === "4"} onChange={handleRatings}/>4★ & Above
+</label>
 
 
 
